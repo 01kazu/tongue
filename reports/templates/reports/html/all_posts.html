@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block active_nav_bar %}
+              <li class="active"><a href="{% url 'reports:all_posts' %}">All Posts </a></li>
+              <li><a href="https://docs.google.com/document/d/1KdEZjx23Jri_K1D9cLD3kxJsng4L5PnhrzxI-A2UvvI/edit">Docs </a> </li>
+              <li ><a href="{% url 'reports:welcome' %}">post something <span class="sr-only">(current)</span></a></li>
+{% endblock %}
+
+{% block content %}  
+
+{% for post in post_list %} 
+<div>
+<h1><a href="{% url 'reports:all_posts_detail' pk=post.pk %}" >{{ post.title|title }} </a></h1> <span><small>{{post.user|title}}</small></span>
+<small>{{post.date}}</small> 
+
+</div>
+{% endfor %}
+
+<!-- <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in post_list %}
+            <tr>
+              <td>{{ post.user }}</td>
+              <td>{{ post.post }}</td>
+              <td>{{ post.date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table> -->
+      
+      {% if is_paginated %}
+    {% load proper_paginator %}
+    {% load url_replace %}
+    <ul class="pagination">
+        {% if page_obj.number == 1 %}
+            <li class="disabled"><span>⇤</span></li>
+        {% else %}
+            <li><a class="page-link" href="?{% url_replace request 'page' 1 %}">⇤</a></li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+            <li><a class="page-link" href="?{% url_replace request 'page' page_obj.previous_page_number %}">&laquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in paginator|proper_paginate:page_obj.number %}
+            {% if page_obj.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a class="page-link" href="?{% url_replace request 'page' i %}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li><a class="page-link" href="?{% url_replace request 'page' page_obj.next_page_number %}">&raquo;</a></li>
+        {% else %}
+            <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+        {% if page_obj.number == paginator.num_pages %}
+            <li class="disabled"><span>⇥</span></li>
+        {% else %}
+            <li><a class="page-link" href="?{% url_replace request 'page' paginator.num_pages %}">⇥</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block active_nav_bar %}
+              <li ><a href="{% url 'reports:all_posts' %}">All Posts </a></li>
+              <li><a href="https://docs.google.com/document/d/1KdEZjx23Jri_K1D9cLD3kxJsng4L5PnhrzxI-A2UvvI/edit">Docs </a> </li>
+              <li class="active"><a href="#">post something <span class="sr-only">(current)</span></a></li>
+{% endblock %}
+
+{% block content %}  
+		<br>  <p class="text-center"> POST SOMETHING</p>
+		<hr>
+      <!-- <h1>{{user.matric_number}}</h1> -->
+    <form method="POST">
+        {% csrf_token %}
+      {% for field in form %} 
+      <div class="fieldWrapper"> 
+        <!-- {{ field.errors }}  -->
+       {{ field }} 
+        {% if field.help_text %} <p class="help">{{ field.help_text|safe }}</p> 
+        {% endif %} 
+      </div> 
+      {% endfor %}
+      <div class="p-t-10">
+          <button class="btn btn--pill btn--green" type="submit" style="margin: auto; display: block;">Submit</button>
+      </div>
+    </form>
+{% endblock content %}
