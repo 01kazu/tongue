@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reports',
-    'social_django'
 ]
 
 MIDDLEWARE = [
@@ -50,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'tongue.urls'
@@ -66,8 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+               
             ],
         },
     },
@@ -133,45 +130,11 @@ STATIC_URL = '/static/'
 MEDIA_ROOT=  MEDIA_DIR
 MEDIA_URL = '/media/'
 
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.facebook.FacebookOAuth2',
+AUTHENTICATION_BACKENDS = ()
 
     'django.contrib.auth.backends.ModelBackend',
 )
 
-# SOCIAL_AUTH_PIPELINE = (
-#     'social.pipeline.social_auth.social_details',
-#     'social.pipeline.social_auth.social_uid',
-#     'social.pipeline.social_auth.auth_allowed',
-#     'social.pipeline.social_auth.social_user',
-#     'social.pipeline.user.get_username',
-#     'social.pipeline.user.create_user',
-#     'social.pipeline.social_auth.associate_user',
-#     'social.pipeline.debug.debug',
-#     'social.pipeline.social_auth.load_extra_data',
-#     'social.pipeline.user.user_details',
-#     'social.pipeline.debug.debug',
-# )
-
-# SOCIAL_AUTH_GOOGLE_OAUTH2_IGNORE_DEFAULT_SCOPE = True
-# SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
-# 'https://www.googleapis.com/auth/userinfo.email',
-# 'https://www.googleapis.com/auth/userinfo.profile'
-# ]
-# # Google+ SignIn (google-plus)
-# SOCIAL_AUTH_GOOGLE_PLUS_IGNORE_DEFAULT_SCOPE = True
-# SOCIAL_AUTH_GOOGLE_PLUS_SCOPE = [
-# 'https://www.googleapis.com/auth/plus.login',
-# 'https://www.googleapis.com/auth/userinfo.email',
-# 'https://www.googleapis.com/auth/userinfo.profile'
-# ]
-# LOGIN_URL = '/account/login/'
-
-"""
-for confirmation email
-"""
 
 # AUTH_USER_MODEL = 'reports.User'
 # EMAIL_BACKEND = ‘django.core.mail.backends.smtp.EmailBackend’
