@@ -126,12 +126,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
 MEDIA_ROOT=  MEDIA_DIR
 MEDIA_URL = '/media/'
 
-AUTHENTICATION_BACKENDS = ()
-
+AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -145,3 +144,17 @@ EMAIL_HOST_PASSWORD = '1234@5678'
 EMAIL_PORT = 587
 
 LOGIN_URL = ""
+
+"DEPLOYMENT SETTINGS HEROKU"
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
