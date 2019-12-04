@@ -1,1 +1,1 @@
-web: gunicorn tongue.wsgi --log-file -
+web: gunicorn tongue.wsgi
