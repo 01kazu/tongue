@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 
-User = settings.AUTH_USER_MODEL
+# User = settings.AUTH_USER_MODEL
 # Create your models here.
 
 class Report(models.Model):
