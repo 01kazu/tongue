@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'tongue.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'tongue_group',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
