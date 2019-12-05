@@ -19,9 +19,25 @@ import django_heroku
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_DIR = os.path.join(BASE_DIR, "media")
 # This is new:
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
+DOTENV_FILE = os.path.join(BASE_DIR, ".env")
+ENV = False
+
+if os.path.isfile(DOTENV_FILE):
+    ENV = True
+if ENV:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': dotenv.get_key(DOTENV_FILE, 'DB_NAME'),
+            'USER': dotenv.get_key(DOTENV_FILE, 'DB_USER'),
+            'PASSWORD': dotenv.get_key(DOTENV_FILE, 'DB_PASSWORD'),
+            'HOST': dotenv.get_key(DOTENV_FILE, 'DB_HOST'),
+            'PORT': dotenv.get_key(DOTENV_FILE, 'DB_PORT')
+        }
+    }
+else:
+    DATABASES = dict()
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 
 # Quick-start development settings - unsuitable for production
@@ -101,8 +117,8 @@ WSGI_APPLICATION = 'tongue.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-DATABASES = {}
-DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+# DATABASES = {}
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -175,6 +191,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # This should already be in your settings.py
 django_heroku.settings(locals())
 
-del DATABASES['default']['OPTIONS']['sslmode']
+if not ENV:
+    del DATABASES['default']['OPTIONS']['sslmode']
 
 
