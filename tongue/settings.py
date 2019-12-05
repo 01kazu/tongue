@@ -142,7 +142,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-AUTH_USER_MODEL = 'reports.User'
+# AUTH_USER_MODEL = 'reports.User'
 # EMAIL_BACKEND = ‘django.core.mail.backends.smtp.EmailBackend’
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
