@@ -191,7 +191,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # This should already be in your settings.py
 django_heroku.settings(locals())
 
-if not ENV:
-    del DATABASES['default']['OPTIONS']['sslmode']
 
 
